@@ -64,10 +64,10 @@ class RoomController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'Name' => 'sometimes|required|string',
-            'Position' => 'sometimes|required|integer',
-            'Length' => 'sometimes|required|integer',
-            'Width' => 'sometimes|required|integer',
+            'Name' => 'required|string',
+            'Position' => 'required|integer',
+            'Length' => 'required|integer',
+            'Width' => 'required|integer',
         ]);
 
         $room = Room::find($id);
