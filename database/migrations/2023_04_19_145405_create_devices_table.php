@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('devices', function (Blueprint $table) {
             $table->id();
+            $table->string('MAC')->unique();
             $table->string('Name');
+            $table->enum('Status', ['active', 'inactive'])->default('active');
             $table->integer('Position_x');
             $table->integer('Position_y');
-            $table->integer('Length');
-            $table->integer('Width');
+            $table->integer('room_id');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('devices');
     }
 };
