@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\RoomController;
+use App\Http\Controllers\Api\DeviceController;
+use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\SensorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/rooms', [RoomController::class, 'index']);
-Route::get('/rooms/{id}', [RoomController::class, 'show']);
-Route::post('/rooms', [RoomController::class, 'store']);
-Route::put('/rooms/{id}', [RoomController::class, 'update']);
-Route::delete('/rooms/{id}', [RoomController::class, 'destroy']);
+Route::apiResource('rooms', RoomController::class);
+Route::apiResource('devices', DeviceController::class);
+Route::apiResource('sensors', SensorController::class);
