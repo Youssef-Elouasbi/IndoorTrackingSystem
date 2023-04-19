@@ -30,15 +30,12 @@ class RoomController extends Controller
             'Width' => 'required|integer',
         ]);
 
-        $room = Room::create([
-            'Name' => $validatedData['Name'],
-            'Position_x' => $validatedData['Position_x'],
-            'Position_y' => $validatedData['Position_y'],
-            'Length' => $validatedData['Length'],
-            'Width' => $validatedData['Width'],
-        ]);
-
-        return response()->json($room, 201);
+        try {
+            $room = Room::create($validatedData);
+            return response()->json(['message' => 'Room created successfully', 'room' => $room], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to create room'], 500);
+        }
         //
     }
 
@@ -74,15 +71,12 @@ class RoomController extends Controller
             'Width' => 'sometimes|required|integer',
         ]);
 
-        $room->Name = $validatedData['Name'] ?? $room->Name;
-        $room->Position_x = $validatedData['Position_x'] ?? $room->Position_x;
-        $room->Position_y = $validatedData['Position_y'] ?? $room->Position_y;
-        $room->Length = $validatedData['Length'] ?? $room->Length;
-        $room->Width = $validatedData['Width'] ?? $room->Width;
-
-        $room->save();
-
-        return response()->json($room, 200);
+        try {
+            $room->update($validatedData);
+            return response()->json(['message' => 'Room updated successfully', 'room' => $room], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to update room'], 500);
+        }
     }
 
     /**
@@ -90,14 +84,12 @@ class RoomController extends Controller
      */
     public function destroy(string $id)
     {
-        $room = Room::find($id);
-
-        if (!$room) {
-            return response()->json(['message' => 'Room not found'], 404);
+        try {
+            $room = Room::findOrFail($id);
+            $room->delete();
+            return response()->json(['message' => 'Room deleted successfully'], 204);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Failed to delete room'], 500);
         }
-
-        $room->delete();
-
-        return response()->json(['message' => 'Room deleted'], 200);
     }
 }
