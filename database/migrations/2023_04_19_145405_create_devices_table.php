@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('MAC')->unique();
             $table->string('Name');
-            $table->enum('Status', ['active', 'inactive'])->default('active');
+            $table->enum('Status', ['LEARNING', 'USED'])->default('USED');
             $table->integer('Position_x');
             $table->integer('Position_y');
             $table->integer('room_id');

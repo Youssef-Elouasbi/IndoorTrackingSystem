@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Device;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class DeviceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the devices
      */
+
     public function index()
     {
         $devices = Device::all();
@@ -34,7 +37,7 @@ class DeviceController extends Controller
 
         try {
             $device = Device::create($validatedData);
-            return response()->json(['message' => 'Device created successfully', 'sensor' => $device], 201);
+            return response()->json(['message' => 'Device created successfully', 'device' => $device], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to create device'], 500);
         }
@@ -91,6 +94,19 @@ class DeviceController extends Controller
             return response()->json(['message' => 'Device deleted successfully'], 200);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Failed to delete device'], 500);
+        }
+    }
+
+    public function changeStatus(string $MAC, string $status)
+    {
+        try {
+            $device = Device::where('MAC', '=', $MAC)->findOrFail();
+            $device->update(['status' => $status]);
+            return response()->json(['message' => 'Device status updated successfully'], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'Device not found'], 404);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'An error occurred while updating the device status'], 500);
         }
     }
 }
