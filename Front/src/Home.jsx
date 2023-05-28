@@ -8,7 +8,8 @@ import { useState } from 'react';
 const Home = () => {
     const [status, setStatus] = useState('LEARNING')
     return (
-        <Container>
+        <Container className='mt-5 text-center'>
+            <h1 className="fs-1">Indoor Traking System</h1>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -36,7 +37,7 @@ const Home = () => {
                 </tbody>
             </Table>
             <Form>
-                <Row className="align-items-center">
+                <Row className="align-items-center justify-content-center">
                     <Col sm={3} className="my-1">
                         <Form.Select aria-label="Devices List">
                             <option>Devices List</option>
