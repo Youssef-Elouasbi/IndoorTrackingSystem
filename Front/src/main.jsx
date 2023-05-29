@@ -2,9 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import router from './router';
+import { StateProvider } from './contexts/StateContext';
+import { RouterProvider } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <StateProvider>
+      <RouterProvider router={router} />
+    </StateProvider>
+    {/* <App /> */}
   </React.StrictMode>,
 )
