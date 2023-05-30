@@ -71,7 +71,7 @@ const Home = () => {
                                     <th>#</th>
                                     <th>Devices</th>
                                     <th>Status</th>
-                                    <th>Last Record</th>
+                                    <th>Created At</th>
                                 </tr>
                             </thead>
                             <tbody>
