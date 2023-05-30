@@ -27,12 +27,12 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'mac' => 'required|string|unique:devices',
-            'name' => 'required|string',
-            'status' => 'required|boolean',
+            'MAC' => 'required|string|unique:devices',
+            'Name' => 'required|string',
+            'Status' => 'required|boolean',
             'position_x' => 'required|integer',
             'position_y' => 'required|integer',
-            'room_id' => 'required|exists:rooms,id'
+            'Room' => 'required'
         ]);
 
         try {
@@ -100,8 +100,8 @@ class DeviceController extends Controller
     public function changeStatus(string $MAC, string $status)
     {
         try {
-            $device = Device::where('MAC', '=', $MAC)->findOrFail();
-            $device->update(['status' => $status]);
+            $device = Device::where('MAC', '=', $MAC)->firstOrFail();
+            $device->update(['Status' => $status]);
             return response()->json(['message' => 'Device status updated successfully'], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Device not found'], 404);

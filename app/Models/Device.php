@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Device extends Model
 {
     use HasFactory;
-    protected $fillable = ['MAC', 'Name', 'Status', 'Position_x', 'Position_y', 'room_id'];
+    protected $fillable = ['MAC', 'Name', 'Status', 'Position_x', 'Position_y', 'Room'];
 
     public function room(): BelongsTo
     {

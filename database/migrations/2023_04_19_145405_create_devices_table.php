@@ -18,8 +18,8 @@ return new class extends Migration
             $table->enum('Status', ['LEARNING', 'USED'])->default('USED');
             $table->integer('Position_x');
             $table->integer('Position_y');
-            $table->integer('room_id');
-            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+            $table->integer('Room');
+            // $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->timestamps();
         });
     }

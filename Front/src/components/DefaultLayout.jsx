@@ -20,7 +20,7 @@ const DefaultLayout = () => {
                         <Navbar.Toggle />
                         <Navbar.Collapse className="justify-content-end">
                             <Navbar.Text>
-                                Signed in as: <b> {user.name}</b>
+                                Signed in as: <b> {user.name}</b>&nbsp;
                                 <a href="#" onClick={onLogout} className='btn-logout'>Logout</a>
                             </Navbar.Text>
                         </Navbar.Collapse>
