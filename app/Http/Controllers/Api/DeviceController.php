@@ -7,6 +7,7 @@ use App\Models\Device;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class DeviceController extends Controller
@@ -17,7 +18,14 @@ class DeviceController extends Controller
 
     public function index()
     {
-        $devices = Device::all();
+        // $devices = Device::all();
+        $devices = Device::with('latestDataEntry')->get();
+        // $date = DB::table('devices')
+        // ->join('data_entries','devices.id', '=', 'data_entries.device_id')
+        // ->select('created_at')
+        // ->where()
+
+
         return response()->json($devices);
     }
 
