@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\DataEntryController;
 use App\Http\Controllers\Api\DeviceController;
 use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\RoomDataController;
 use App\Http\Controllers\Api\SensorController;
+
+use App\Models\RoomData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +29,8 @@ Route::apiResource('rooms', RoomController::class);
 Route::apiResource('devices', DeviceController::class);
 Route::put('devices/{MAC}/status/{status}', [DeviceController::class, 'changeStatus']);
 Route::apiResource('sensors', SensorController::class);
+// Route::apiResource('roomdata', RoomDataController::class);
+Route::get('roomdata', [RoomDataController::class, 'index']);
+Route::get('roomdata/unique', [RoomDataController::class, 'GetUniqueValues']);
+Route::delete('roomdata/{room}', [RoomDataController::class, 'destroy']);
+Route::post('dataentry', [DataEntryController::class, 'store']);

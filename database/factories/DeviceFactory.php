@@ -22,7 +22,7 @@ class DeviceFactory extends Factory
             'Status' => fake()->randomElement(['LEARNING', 'USED']),
             'Position_x' => fake()->numberBetween(0, 100),
             'Position_y' => fake()->numberBetween(0, 100),
-            'Room' => fake()->numberBetween(1, 5),
+            'Room' => null,
         ];
     }
 }

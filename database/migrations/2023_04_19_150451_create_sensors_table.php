@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sensors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->integer('position_x');
             $table->integer('position_y');
             $table->text('details')->nullable();
