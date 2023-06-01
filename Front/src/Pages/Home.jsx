@@ -182,7 +182,7 @@ const Home = () => {
                                 </Form.Select>
                             </Col>
                             <Col xs="auto" className="my-1">
-                                <Button type="submit" variant={selectedDevice?.Status == 'USED' ? 'success' : 'danger'}>
+                                <Button type="submit" variant={selectedDevice?.Status == 'USED' ? 'success' : 'danger'} disabled={waitUpdate}>
                                     {waitUpdate ? (
                                         <>
                                             Wait <Spinner animation="border" variant="warning" />
@@ -219,7 +219,7 @@ const Home = () => {
                                         </Form.Select>
                                     </Col>
                                     <Col xs="auto" className="my-1">
-                                        <Button type="submit" variant="danger">
+                                        <Button type="submit" variant="danger" disabled={waitDelete}>
                                             {waitDelete ? (
                                                 <>
                                                     Wait <Spinner animation="border" variant="warning" />
