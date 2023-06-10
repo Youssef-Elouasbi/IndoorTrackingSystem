@@ -21,9 +21,6 @@ class RoomDataController extends Controller
     }
     public function GetData()
     {
-        // $data = RoomData::with('getDataEntriesWithDetails')->orderBy('created_at', 'asc')->get();
-        // return response()->json($data);
-
         $data = RoomData::with(['dataEntry.device', 'dataEntry.sensor'])
             ->orderBy('created_at', 'asc')
             ->get()
