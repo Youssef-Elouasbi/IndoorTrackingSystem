@@ -12,10 +12,10 @@ class Device extends Model
     use HasFactory;
     protected $fillable = ['MAC', 'Name', 'Status', 'Position_x', 'Position_y', 'Room'];
 
-    public function room(): BelongsTo
-    {
-        return $this->belongsTo(Room::class);
-    }
+    // public function room(): BelongsTo
+    // {
+    //     return $this->belongsTo(Room::class);
+    // }
 
     public function DataEntry(): HasMany
     {

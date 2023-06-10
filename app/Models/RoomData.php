@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class RoomData extends Model
 {
@@ -13,8 +15,10 @@ class RoomData extends Model
 
 
 
-    public function DataEntry(): HasMany
+
+
+    public function DataEntry(): HasOne
     {
-        return $this->hasMany(DataEntry::class);
+        return $this->hasOne(DataEntry::class, 'id', 'data_entries_id');
     }
 }

@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        Device::factory()->count(20)->create();
-        Sensor::factory()->count(5)->create();
-        DataEntry::factory()->count(5)->create();
-        RoomData::factory()->count(5)->create();
+        Device::factory()->count(30)->create();
+        Sensor::factory()->count(10)->create();
+        DataEntry::factory()->count(40)->create();
+        RoomData::factory()->count(40)->create();
     }
 }

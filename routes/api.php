@@ -31,6 +31,11 @@ Route::put('devices/{MAC}/status/{status}', [DeviceController::class, 'changeSta
 Route::apiResource('sensors', SensorController::class);
 // Route::apiResource('roomdata', RoomDataController::class);
 Route::get('roomdata', [RoomDataController::class, 'index']);
+
+
 Route::get('roomdata/unique', [RoomDataController::class, 'GetUniqueValues']);
 Route::delete('roomdata/{room}', [RoomDataController::class, 'destroy']);
+
+Route::get('roomdata/details', [RoomDataController::class, 'GetData']);
+// route for machine learning
 Route::post('dataentry', [DataEntryController::class, 'store']);
