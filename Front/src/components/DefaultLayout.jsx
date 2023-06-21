@@ -3,6 +3,8 @@ import { Link, Navigate, Outlet } from 'react-router-dom'
 import { useStateContext } from '../contexts/StateContext'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import { LinkContainer } from 'react-router-bootstrap'
 const DefaultLayout = () => {
     const { user, token } = useStateContext()
     // if (!token) {
@@ -14,15 +16,22 @@ const DefaultLayout = () => {
     return (
         <div id='defaultLayout'>
             <div>
-                <Navbar>
+                <Navbar expand="lg" className="bg-body-tertiary">
                     <Container>
-                        <Navbar.Brand href="#home">PFA</Navbar.Brand>
-                        <Navbar.Toggle />
-                        <Navbar.Collapse className="justify-content-end">
-                            <Navbar.Text>
-                                Signed in as: <b> {user.name}</b>&nbsp;
-                                <a href="#" onClick={onLogout} className='btn-logout'>Logout</a>
-                            </Navbar.Text>
+                        <Navbar.Brand>PFA | Indoor Tracking System</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                <LinkContainer to="/home">
+                                    <Nav.Link>Home</Nav.Link>
+                                </LinkContainer>
+                                <LinkContainer to="/devices">
+                                    <Nav.Link>Devices List</Nav.Link>
+                                </LinkContainer>
+                                <LinkContainer to="/admin">
+                                    <Nav.Link>Admin Panel</Nav.Link>
+                                </LinkContainer>
+                            </Nav>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>

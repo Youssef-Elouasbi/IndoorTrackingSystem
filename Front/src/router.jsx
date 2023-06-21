@@ -6,6 +6,8 @@ import GuestLayout from './components/GuestLayout'
 import DefaultLayout from './components/DefaultLayout'
 
 import Home from './Pages/Home'
+import Devices from './Pages/Devices'
+import Admin from './Pages/Admin'
 
 const router = createBrowserRouter([
     {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
                 path: '/Home',
                 element: <Home />
             },
+            {
+                path: '/Devices',
+                element: <Devices />
+            },
+            {
+                path: '/Admin',
+                element: <Admin />
+            }
 
         ]
     },

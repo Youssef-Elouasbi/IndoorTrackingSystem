@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\DataEntry;
+use App\Models\Room;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,8 +19,9 @@ class RoomDataFactory extends Factory
     public function definition(): array
     {
         $dataEntryId = DataEntry::pluck('id')->toArray();
+        $RoomId = Room::pluck('id')->toArray();
         return [
-            'room' => fake()->randomNumber(),
+            'room_id' => fake()->randomElement($RoomId),
             'data_entries_id' => fake()->randomElement($dataEntryId),
         ];
     }

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\DataEntry;
 use App\Models\Device;
+use App\Models\Room;
 use App\Models\RoomData;
 use App\Models\Sensor;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        Room::factory()->count(10)->create();
         Device::factory()->count(30)->create();
         Sensor::factory()->count(10)->create();
         DataEntry::factory()->count(40)->create();

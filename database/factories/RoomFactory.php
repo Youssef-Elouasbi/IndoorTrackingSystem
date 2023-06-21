@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Room;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Device>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AppModelsRoom>
  */
-class DeviceFactory extends Factory
+class RoomFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,14 +16,12 @@ class DeviceFactory extends Factory
      */
     public function definition(): array
     {
-        $RoomId = Room::pluck('id')->toArray();
         return [
-            'MAC' => fake()->unique()->macAddress,
-            'Name' => fake()->name(),
-            'Status' => fake()->randomElement(['LEARNING', 'USED']),
+            'Name' => fake()->word,
             'Position_x' => fake()->numberBetween(0, 100),
             'Position_y' => fake()->numberBetween(0, 100),
-            'room_id' => fake()->randomElement($RoomId),
+            'Length' => fake()->numberBetween(10, 50),
+            'Width' => fake()->numberBetween(10, 50),
         ];
     }
 }
