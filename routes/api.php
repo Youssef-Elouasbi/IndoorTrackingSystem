@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('rooms', RoomController::class);
 Route::apiResource('devices', DeviceController::class);
-Route::put('devices/{MAC}/status/{status}', [DeviceController::class, 'changeStatus']);
+Route::put('devices/{MAC}/status/{status}/{selectedRoomCapture}', [DeviceController::class, 'changeStatus']);
 
 Route::get('ListRooms', [DeviceController::class, 'getDevicesWithRooms']);
 

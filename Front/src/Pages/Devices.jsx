@@ -12,32 +12,22 @@ const Devices = () => {
     const [datas, setData] = useState([]);
     const [tempDatas, setTempData] = useState([]);
     const [room, setRoom] = useState("All");
+    const [rooms, setRooms] = useState([]);
     const [search, setSearch] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [datasPerPage] = useState(7);
+    const [datasPerPage] = useState(11);
 
     function GenerateData(room, search) {
         if (room !== "All") {
             return datas
-                .filter((d) => d.roomName === room)
-                .map((d) => {
-                    return {
-                        ...d,
-                        deviceNames: d.deviceNames.filter((name) =>
-                            name.toLowerCase().startsWith(search.toLowerCase())
-                        ),
-                    };
-                });
+                .filter((d) => d.room.Name === room)
+                .filter((d) => d.Name.toLowerCase().startsWith(search.toLowerCase()))
+
         }
-        return datas.map((d) => {
-            return {
-                ...d,
-                deviceNames: d.deviceNames.filter((name) =>
-                    name.toLowerCase().startsWith(search.toLowerCase())
-                ),
-            };
-        });
+
+
+        return datas.filter((d) => d.Name.toLowerCase().startsWith(search.toLowerCase()))
     }
 
 
@@ -45,8 +35,9 @@ const Devices = () => {
         axiosClient
             .get('/ListRooms')
             .then((response) => {
-                setData(response.data);
-                setTempData(response.data);
+                setData(response.data.datas);
+                setTempData(response.data.datas);
+                setRooms(response.data.rooms);
             })
             .catch((error) => console.error(error));
 
@@ -94,14 +85,14 @@ const Devices = () => {
                                 <b>Room : </b>
                             </Col>
                             <Col xs="auto" className="my-1">
-                                <Form.Select aria-label="Devices List" onChange={(event) => setRoom(event.target.value)}>
-                                    <option value="All" selected>
+                                <Form.Select aria-label="Devices List" onChange={(event) => setRoom(event.target.value)} defaultValue={"All"}>
+                                    <option value="All" >
                                         All
                                     </option>
-                                    {datas.map((d) => {
+                                    {rooms.map((r) => {
                                         return (
-                                            <option value={d.roomName} key={d.id}>
-                                                {d.roomName}
+                                            <option value={r.Name} key={r.id}>
+                                                {r.Name}
                                             </option>
                                         );
                                     })}
@@ -113,21 +104,17 @@ const Devices = () => {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
+                                <th>Device Name</th>
                                 <th>Room Name</th>
-                                <th>Device Names</th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentDatas.map((d) => {
                                 return (
                                     <tr key={d.id}>
-                                        <td>{d.roomName}</td>
+                                        <td>{d.Name}</td>
                                         <td>
-                                            {d.deviceNames.map(deviceName => (
-                                                <>
-                                                    <span key={deviceName}>{deviceName}</span><br />
-                                                </>
-                                            ))}
+                                            {d.room.Name}
                                         </td>
                                     </tr>
                                 );

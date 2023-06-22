@@ -4,7 +4,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Room;
 use App\Models\RoomData;
+use Exception;
 use Illuminate\Http\Request;
 
 class RoomDataController extends Controller
@@ -16,8 +18,14 @@ class RoomDataController extends Controller
     }
     public function GetUniqueValues()
     {
-        $uniqueRooms = RoomData::distinct('room')->get(['id', 'room']);
-        return response()->json($uniqueRooms);
+        // $uniqueRooms = RoomData::distinct('room_id')->get(['id', 'room_id']);
+        try {
+            // $uniqueRooms = RoomData::with('Room')->distinct('room_id')->select('room_id')->get();
+            $uniqueRooms = Room::select('id', 'Name')->get();
+            return response()->json($uniqueRooms);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage());
+        }
     }
     public function GetData()
     {
@@ -27,12 +35,12 @@ class RoomDataController extends Controller
             ->map(function ($roomData) {
                 return [
                     'id' => $roomData->id,
-                    'room' => $roomData->room,
+                    'room' => $roomData->room_id,
                     'dataEntry' => [
                         'id' => $roomData->dataEntry->id,
                         'mac' => $roomData->dataEntry->device->MAC,
                         'PWR' => $roomData->dataEntry->PWR,
-                        'sensor' => $roomData->dataEntry->sensor->name,
+                        'sensor' => $roomData->dataEntry->sensor->id,
                         'created_at' => $roomData->dataEntry->created_at,
                     ]
                     // 'created_at' => $roomData->created_at,
@@ -45,7 +53,7 @@ class RoomDataController extends Controller
     public function destroy($room)
     {
         try {
-            $roomdata = RoomData::where('room', $room)->get();
+            $roomdata = RoomData::where('room_id', $room)->get();
             $roomdata->each->delete();
             return response()->json(['message' => 'RoomData with this specific room value deleted successfully']);
         } catch (\Throwable $th) {

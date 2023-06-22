@@ -20,21 +20,24 @@ class DeviceController extends Controller
     public function getDevicesWithRooms()
     {
         try {
-            $datas = Room::with('devices')->select('id', 'Name')->get();
+            // $datas = Room::with('devices')->select('id', 'Name')->get();
+            $datas = Device::with('Room')->select('id', 'Name', 'room_id')->get();
+            $rooms = Room::all();
 
-            $rooms = [];
+            // $rooms = [];
 
-            foreach ($datas as $data) {
-                $deviceNames = $data->devices->pluck('Name')->toArray();
+            // foreach ($datas as $data) {
+            //     $deviceNames = $data->devices->pluck('Name')->toArray();
 
-                $rooms[] = [
-                    'id' => $data->id,
-                    'roomName' => $data->Name,
-                    'deviceNames' => $deviceNames,
-                ];
-            }
+            //     $rooms[] = [
+            //         'id' => $data->id,
+            //         'roomName' => $data->Name,
+            //         'deviceNames' => $deviceNames,
+            //     ];
+            // }
 
-            return response()->json($rooms);
+            // return response()->json($rooms);
+            return response()->json(['datas' => $datas, 'rooms' => $rooms]);
         } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()]);
         }
@@ -128,11 +131,14 @@ class DeviceController extends Controller
         }
     }
 
-    public function changeStatus(string $MAC, string $status)
+    public function changeStatus(string $MAC, string $status, $selectedRoomCapture)
     {
         try {
             $device = Device::where('MAC', '=', $MAC)->firstOrFail();
             $device->update(['Status' => $status]);
+            $room = Room::find($selectedRoomCapture);
+            $device->Room()->associate($room);
+            $device->save();
             return response()->json(['message' => 'Device status updated successfully'], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Device not found'], 404);

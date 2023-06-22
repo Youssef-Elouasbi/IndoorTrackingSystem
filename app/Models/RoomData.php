@@ -21,4 +21,8 @@ class RoomData extends Model
     {
         return $this->hasOne(DataEntry::class, 'id', 'data_entries_id');
     }
+    public function Room(): HasOne
+    {
+        return $this->hasOne(Room::class);
+    }
 }

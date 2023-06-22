@@ -22,9 +22,9 @@ class Device extends Model
     {
         return $this->hasMany(DataEntry::class);
     }
-    public function Room(): HasOne
+    public function Room(): BelongsTo
     {
-        return $this->hasOne(Room::class);
+        return $this->belongsTo(Room::class);
     }
 
     public function latestDataEntry()

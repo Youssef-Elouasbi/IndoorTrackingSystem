@@ -19,6 +19,7 @@ const Admin = () => {
     const [showModal, setShowModal] = useState(false);
     const [Rooms, setRooms] = useState([]);
     const [selectedRoom, setSelectedRoom] = useState(null);
+    const [selectedRoomCapture, setSelectedRoomCapture] = useState(null);
     const [waitDelete, setWaitDelete] = useState(false);
     const [showMessageRoom, setShowMessageRoom] = useState(false);
     const [messageRoom, setMessageRoom] = useState('');
@@ -34,7 +35,7 @@ const Admin = () => {
         setWaitUpdate(true);
         const Status = selectedDevice.Status == 'USED' ? 'LEARNING' : 'USED';
         axiosClient
-            .put(`/devices/${selectedDevice.MAC}/status/${Status}`)
+            .put(`/devices/${selectedDevice.MAC}/status/${Status}/${selectedRoomCapture}`)
             .then((response) => {
                 setMessage(response.data.message);
                 setShowMessage(true);
@@ -59,7 +60,7 @@ const Admin = () => {
             .then((response) => {
                 setMessageRoom(response.data.message);
                 setShowMessageRoom(true);
-                setRooms((prevRooms) => prevRooms.filter((r) => r.room != selectedRoom));
+                // setRooms((prevRooms) => prevRooms.filter((r) => r.id != selectedRoom));
                 setWaitDelete(false);
             })
             .catch((error) => console.error(error));
@@ -71,6 +72,10 @@ const Admin = () => {
 
     const handleRoomChange = (event) => {
         setSelectedRoom(event.target.value);
+    };
+    const handleRoomCaptureChange = (event) => {
+        setSelectedRoomCapture(event.target.value);
+
     };
 
     useEffect(() => {
@@ -97,7 +102,8 @@ const Admin = () => {
 
     useEffect(() => {
         if (Rooms.length > 0 && !selectedRoom) {
-            setSelectedRoom(Rooms[0].room + '');
+            setSelectedRoom(Rooms[0].id + '');
+            setSelectedRoomCapture(Rooms[0].id);
         }
     }, [Rooms]);
 
@@ -181,6 +187,17 @@ const Admin = () => {
                                     })}
                                 </Form.Select>
                             </Col>
+                            <Col sm={3} className="my-1">
+                                <Form.Select aria-label="Room Data List" onChange={handleRoomCaptureChange}>
+                                    {Rooms.map((r) => {
+                                        return (
+                                            <option value={r.id} key={r.id}>
+                                                {r.id + " | " + r.Name}
+                                            </option>
+                                        );
+                                    })}
+                                </Form.Select>
+                            </Col>
                             <Col xs="auto" className="my-1">
                                 <Button type="submit" variant={selectedDevice?.Status == 'USED' ? 'success' : 'danger'} disabled={waitUpdate}>
                                     {waitUpdate ? (
@@ -211,8 +228,8 @@ const Admin = () => {
                                         <Form.Select aria-label="Room Data List" onChange={handleRoomChange}>
                                             {Rooms.map((r) => {
                                                 return (
-                                                    <option value={r.room} key={r.id}>
-                                                        {r.room}
+                                                    <option value={r.id} key={r.id}>
+                                                        {r.id + " | " + r.Name}
                                                     </option>
                                                 );
                                             })}

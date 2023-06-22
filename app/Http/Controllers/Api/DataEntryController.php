@@ -26,7 +26,7 @@ class DataEntryController extends Controller
                 'Name' => 'Default Name',
                 'Position_x' => 0,
                 'Position_y' => 0,
-                'Room' => null,
+                'room_id' => null,
             ]);
 
 
@@ -46,7 +46,7 @@ class DataEntryController extends Controller
 
             if ($device->Status == "LEARNING") {
                 $roomdata = RoomData::create([
-                    'room' => 0,
+                    'room_id' => $device->room_id,
                     'data_entries_id' => $dataEntry->id
                 ]);
                 return response()->json(['message' => 'DataEntry created successfully with new Room Data', 'dataentry' => $dataEntry, 'roomdata' => $roomdata]);
