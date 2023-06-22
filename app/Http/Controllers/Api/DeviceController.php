@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Device;
+use App\Models\Room;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -16,6 +17,28 @@ class DeviceController extends Controller
      * Display a listing of the devices
      */
 
+    public function getDevicesWithRooms()
+    {
+        try {
+            $datas = Room::with('devices')->select('id', 'Name')->get();
+
+            $rooms = [];
+
+            foreach ($datas as $data) {
+                $deviceNames = $data->devices->pluck('Name')->toArray();
+
+                $rooms[] = [
+                    'id' => $data->id,
+                    'roomName' => $data->Name,
+                    'deviceNames' => $deviceNames,
+                ];
+            }
+
+            return response()->json($rooms);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()]);
+        }
+    }
     public function index()
     {
         // $devices = Device::all();

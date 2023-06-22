@@ -28,7 +28,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('rooms', RoomController::class);
 Route::apiResource('devices', DeviceController::class);
 Route::put('devices/{MAC}/status/{status}', [DeviceController::class, 'changeStatus']);
+
+Route::get('ListRooms', [DeviceController::class, 'getDevicesWithRooms']);
+
 Route::apiResource('sensors', SensorController::class);
+
 // Route::apiResource('roomdata', RoomDataController::class);
 Route::get('roomdata', [RoomDataController::class, 'index']);
 

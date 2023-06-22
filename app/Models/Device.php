@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Device extends Model
 {
@@ -20,6 +21,10 @@ class Device extends Model
     public function DataEntry(): HasMany
     {
         return $this->hasMany(DataEntry::class);
+    }
+    public function Room(): HasOne
+    {
+        return $this->hasOne(Room::class);
     }
 
     public function latestDataEntry()
