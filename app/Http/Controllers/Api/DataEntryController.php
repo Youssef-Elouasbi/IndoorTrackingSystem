@@ -16,13 +16,14 @@ class DataEntryController extends Controller
         try {
             //code...
             $validatedData = $request->validate([
-                'MAC' => 'required|string',
-                'PWR' => 'required|integer',
+                'MAC' => 'required',
+                'PWR' => 'required',
                 'log_at' => 'required',
-                'SensorName' => 'required|string'
+                'SensorName' => 'required'
             ]);
 
             $device = Device::firstOrCreate(['MAC' => $validatedData['MAC']], [
+                'MAC' => $validatedData['MAC'],
                 'Name' => 'Default Name',
                 'Position_x' => 0,
                 'Position_y' => 0,
@@ -31,6 +32,7 @@ class DataEntryController extends Controller
 
 
             $sensor = Sensor::firstOrCreate(['name' => $validatedData['SensorName']], [
+                'name' => $validatedData['SensorName'],
                 'position_x' => 0,
                 'position_y' => 0,
                 'details' => null,
@@ -53,7 +55,7 @@ class DataEntryController extends Controller
             }
             return response()->json(['message' => 'DataEntry created successfully', 'dataentry' => $dataEntry]);
         } catch (\Throwable $th) {
-            return response()->json(['message' => 'Error please try later']);
+            return response()->json(['message' => 'Error please try later ', $th]);
         }
     }
 }
