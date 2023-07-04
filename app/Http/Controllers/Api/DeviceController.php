@@ -21,7 +21,7 @@ class DeviceController extends Controller
     {
         try {
             // $datas = Room::with('devices')->select('id', 'Name')->get();
-            $datas = Device::with('Room')->select('id', 'Name', 'room_id')->get();
+            $datas = Device::with('Room')->select('id', 'Name', 'MAC', 'room_id')->get();
             $rooms = Room::all();
 
             // $rooms = [];

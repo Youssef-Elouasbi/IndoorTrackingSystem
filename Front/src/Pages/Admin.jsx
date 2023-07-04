@@ -147,7 +147,7 @@ const Admin = () => {
                                 <th>#</th>
                                 <th>Devices</th>
                                 <th>Status</th>
-                                <th>Created At</th>
+                                <th>Last entry</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -155,7 +155,7 @@ const Admin = () => {
                                 return (
                                     <tr key={d.id}>
                                         <td>{d.id}</td>
-                                        <td>{d.Name}</td>
+                                        <td>{d.MAC}</td>
                                         <td>{d.Status}</td>
                                         <td>{d.latest_data_entry != null ? d.latest_data_entry.log_at : 'No Record Yet'}</td>
                                     </tr>
@@ -181,7 +181,7 @@ const Admin = () => {
                                     {devices.map((d) => {
                                         return (
                                             <option value={JSON.stringify(d)} key={d.id}>
-                                                {d.Name}
+                                                {d.MAC}
                                             </option>
                                         );
                                     })}
