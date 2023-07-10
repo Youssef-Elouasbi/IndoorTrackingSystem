@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('MAC')->unique();
             $table->string('Name');
             $table->enum('Status', ['LEARNING', 'USED'])->default('USED');
-            $table->integer('Position_x');
-            $table->integer('Position_y');
+            $table->integer('Position_x')->nullable();
+            $table->integer('Position_y')->nullable();
             $table->unsignedBigInteger('room_id')->nullable();
             // $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');

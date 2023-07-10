@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('sensors', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->integer('position_x');
-            $table->integer('position_y');
+            $table->integer('name')->nullable();
+            $table->integer('position_x')->nullable();
+            $table->integer('position_y')->nullable();
             $table->text('details')->nullable();
             $table->timestamps();
         });

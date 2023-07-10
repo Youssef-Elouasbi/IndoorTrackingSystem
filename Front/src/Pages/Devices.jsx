@@ -48,8 +48,12 @@ const Devices = () => {
 
     useEffect(() => {
         const filteredData = datas.filter((d) => {
+            let roomMatch;
             const nameMatch = d.Name.toLowerCase().startsWith(search.toLowerCase());
-            const roomMatch = room === 'All' || d.room.Name === room;
+            if(d.room != null)
+                roomMatch = room === 'All' || d.room.Name === room;
+            else
+                roomMatch = room === 'All'
             return nameMatch && roomMatch;
         });
         setTempDatas(filteredData);
@@ -129,8 +133,8 @@ const Devices = () => {
                         <tbody>
                             {currentDatas.map((d) => (
                                 <tr key={d.id}>
-                                    <td className="text-start">{d.Name}</td>
-                                    <td className="text-center">{d.room.Name}</td>
+                                    <td className="text-start">{d.MAC}</td>
+                                        <td className="text-center">{d.room != null ? d.room.Name : "Pas de prediction"}</td>
                                 </tr>
                             ))}
                         </tbody>

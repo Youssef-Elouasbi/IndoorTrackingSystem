@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class RoomData extends Model
 {
     use HasFactory;
-    protected $fillable = ['room', 'data_entries_id'];
+    protected $fillable = ['room_id', 'data_entries_id'];
 
 
 

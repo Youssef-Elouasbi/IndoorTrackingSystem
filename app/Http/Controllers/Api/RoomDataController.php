@@ -40,7 +40,7 @@ class RoomDataController extends Controller
                         'id' => $roomData->dataEntry->id,
                         'mac' => $roomData->dataEntry->device->MAC,
                         'PWR' => $roomData->dataEntry->PWR,
-                        'sensor' => $roomData->dataEntry->sensor->id,
+                        'sensor' => $roomData->dataEntry->sensor->name,
                         'created_at' => $roomData->dataEntry->created_at,
                     ]
                     // 'created_at' => $roomData->created_at,
